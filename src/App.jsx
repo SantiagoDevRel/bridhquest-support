@@ -16,10 +16,7 @@ function App() {
   web3.registerPlugin(new ZKsyncPlugin(l2Provider));
 
   async function sendOneWei() {
-    //const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
-
     const accounts = await web3.ZKsync.L2.eth.requestAccounts();
-    console.log("address", accounts[0]);
 
     const to = web3.eth.accounts.create();
 
@@ -32,8 +29,7 @@ function App() {
     const populated = await web3.ZKsync.L2.populateTransaction(tx);
     console.log("populated", populated);
 
-    const signature = await web3.ZKsync.L2.eth.accounts.signTransaction(populated);
-    //const signature = await web3.ZKsync.L2.signTransaction(populated);
+    const signature = await web3.ZKsync.L2.eth.sendTransaction(populated);
 
     console.log("signature", signature);
   }
